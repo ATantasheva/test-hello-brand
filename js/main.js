@@ -108,6 +108,8 @@ if (menuLinks) {
  
   //обработка формы
 
+//для попап - конверт - обратная связь
+//проверка что документ загружен
 document.addEventListener('DOMContentLoaded', function () {
 	//получаем всю форму в константу по id
    const form = document.getElementById('form');
@@ -135,7 +137,7 @@ if (error === 0) {
       form.reset(); // очищаем поля формы 
       form.classList.remove('_sending');  //убираем класс отправки формы после того как отправилась
    } else {
-      alert("Ошибка отправки формы. Попробуйте eще раз");
+      alert("Ошибка");
    form.classList.remove('_sending');
    } 
 } else {
@@ -146,8 +148,7 @@ if (error === 0) {
       function formValidate(form) {
          let error = 0;
          //всем обязательным полям класс _req
-         let formReq = document.querySelectorAll('.req');
-
+         let formReq = document.querySelectorAll('._req');
    //цикл - будем проверять заполнено ли поле
    //бегаем по всем этим полям и получаем в конст кажд инпут
          for (let index = 0; index < formReq.length; index++) {
@@ -156,35 +157,40 @@ if (error === 0) {
             formRemoveError(input);
    
             //проверка e-mail
-            if (input.classList.contains('email')) {
+            if (input.classList.contains('_email')) {
                      //проверка по функции теста email
                if (emailTest(input)) {
                   //если true то вешаем класс Error
                   formAddError(input); //вешаем ошибку
-                  alert('Заполните поле email, пример: exmple@gmail.com');
-                  error++; 
+                  error++; // хз зачем увеличив на 1 let error = 0;
                }
-            }  else { //если пустое поле
+            } else if (input.getAttribute("type") === "checkbox" && input.checked === false) {
+               formAddError(input); //вешаем ошибку
+               error++;
+            } else { //если пустое поле
                if (input.value === '') {
                   formAddError(input); //вешаем ошибку
                   error++;
                }
-            } 
-
-                  //проверка по функции теста email
-            if (emailTest(input)) {
-               //если true то вешаем класс Error
-               formAddError(input); 
-               error++; 
             }
-       else { 
-            if (input.value === '') {
-               formAddError(input); 
-               error++;
-            }
-         } 
+           
+               //проверка телефон
+    if (input.classList.contains('tel')) {
+      //проверка по функции теста email
+if (phoneTest(input)) {
+   //если true то вешаем класс Error
+   formAddError(input); //вешаем ошибку
+   error++; // хз зачем увеличив на 1 let error = 0;
+}
+} else { //если пустое поле
+if (input.value === '') {
+   formAddError(input); //вешаем ошибку
+   error++;
+}
+} 
+           
          }
-         return error; 
+         return error; //возврашаем занчение 
       }
       // функции удалить добавить класс Error на элемент и родителя
       function formAddError(input) {
@@ -199,8 +205,9 @@ if (error === 0) {
       function emailTest(input) {
          return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value);
       }
-
-
-
+      //Функция теста telefon
+function phoneTest(input) {
+   return /^[\d\+][\d\(\)\ -]{4,14}\d$/.test(input.value);
+}
    }
 });   
