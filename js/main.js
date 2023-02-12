@@ -136,8 +136,10 @@ if (error === 0) {
       // formPreview.innerHTML = ''; очитска формы при отправке
       form.reset(); // очищаем поля формы 
       form.classList.remove('_sending');  //убираем класс отправки формы после того как отправилась
+      body.classList.remove('lock');
+         popupShow.classList.remove('open');
    } else {
-      alert("Ошибка");
+      alert("Ошибка. Попробуйте еще раз!");
    form.classList.remove('_sending');
    } 
 } else {
@@ -148,7 +150,7 @@ if (error === 0) {
       function formValidate(form) {
          let error = 0;
          //всем обязательным полям класс _req
-         let formReq = document.querySelectorAll('._req');
+         let formReq = document.querySelectorAll('.req');
    //цикл - будем проверять заполнено ли поле
    //бегаем по всем этим полям и получаем в конст кажд инпут
          for (let index = 0; index < formReq.length; index++) {
@@ -157,40 +159,26 @@ if (error === 0) {
             formRemoveError(input);
    
             //проверка e-mail
-            if (input.classList.contains('_email')) {
+            if (input.classList.contains('email')) {
                      //проверка по функции теста email
                if (emailTest(input)) {
-                  //если true то вешаем класс Error
-                  formAddError(input); //вешаем ошибку
-                  error++; // хз зачем увеличив на 1 let error = 0;
+                  
+                  formAddError(input); 
+                  error++; 
+                  alert('Заполните обязательные поля. Например: example@gmail.com');
                }
-            } else if (input.getAttribute("type") === "checkbox" && input.checked === false) {
-               formAddError(input); //вешаем ошибку
-               error++;
-            } else { //если пустое поле
+            }  else { //если пустое поле
                if (input.value === '') {
                   formAddError(input); //вешаем ошибку
-                  error++;
+                  error++;   
+                  alert('Заполните обязательные поля. Например: example@gmail.com');
                }
             }
            
-               //проверка телефон
-    if (input.classList.contains('tel')) {
-      //проверка по функции теста email
-if (phoneTest(input)) {
-   //если true то вешаем класс Error
-   formAddError(input); //вешаем ошибку
-   error++; // хз зачем увеличив на 1 let error = 0;
-}
-} else { //если пустое поле
-if (input.value === '') {
-   formAddError(input); //вешаем ошибку
-   error++;
-}
-} 
+               
            
          }
-         return error; //возврашаем занчение 
+         return error; //возврашаем значение 
       }
       // функции удалить добавить класс Error на элемент и родителя
       function formAddError(input) {
@@ -205,9 +193,6 @@ if (input.value === '') {
       function emailTest(input) {
          return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value);
       }
-      //Функция теста telefon
-function phoneTest(input) {
-   return /^[\d\+][\d\(\)\ -]{4,14}\d$/.test(input.value);
-}
+
    }
 });   
