@@ -135,7 +135,7 @@ if (error === 0) {
       form.reset(); // очищаем поля формы 
       form.classList.remove('_sending');  //убираем класс отправки формы после того как отправилась
    } else {
-      alert("Ошибка");
+      alert("Ошибка отправки формы. Попробуйте eще раз.");
    form.classList.remove('_sending');
    } 
 } else {
@@ -161,6 +161,7 @@ if (error === 0) {
                if (emailTest(input)) {
                   //если true то вешаем класс Error
                   formAddError(input); //вешаем ошибку
+                  alert('Заполните поле email, пример: example@gmail.com');
                   error++; 
                }
             }  else { //если пустое поле
@@ -170,16 +171,15 @@ if (error === 0) {
                }
             } 
 
-         
                   //проверка по функции теста email
             if (emailTest(input)) {
                //если true то вешаем класс Error
-               formAddError(input); //вешаем ошибку
-               error++; // хз зачем увеличив на 1 let error = 0;
+               formAddError(input); 
+               error++; 
             }
-       else { //если пустое поле
+       else { 
             if (input.value === '') {
-               formAddError(input); //вешаем ошибку
+               formAddError(input); 
                error++;
             }
          } 

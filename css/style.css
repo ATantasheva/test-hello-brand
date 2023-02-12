@@ -355,7 +355,7 @@ h6 {
 }
 
 .first__page {
-  background-image: url("/img/main-image.jpg");
+  background-image: url("../img/main-image.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
