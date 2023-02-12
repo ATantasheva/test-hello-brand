@@ -1,0 +1,750 @@
+//<МИКСИНЫ>===============================================================================================
+@mixin anim($time, $delay) {
+   -webkit-transition: all $time ease $delay;
+   -moz-transition: all $time ease $delay;
+   -ms-transition: all $time ease $delay;
+   -o-transition: all $time ease $delay;
+   transition: all $time ease $delay;
+}
+
+@mixin anim_cubic($time, $delay) {
+   -webkit-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   -moz-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   -ms-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   -o-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+}
+
+@mixin rotate($deg) {
+   -moz-transform: rotate($deg);
+   -ms-transform: rotate($deg);
+   -webkit-transform: rotate($deg);
+   -o-transform: rotate($deg);
+   transform: rotate($deg);
+}
+
+@mixin scale($num) {
+   -moz-transform: scale($num);
+   -ms-transform: scale($num);
+   -webkit-transform: scale($num);
+   -o-transform: scale($num);
+   transform: scale($num);
+}
+
+@mixin skew($num) {
+   -webkit-transform: skewX($num);
+   -moz-transform: skewX($num);
+   -ms-transform: skewX($num);
+   -o-transform: skewX($num);
+   transform: skewX($num);
+}
+
+@mixin cnt($h) {
+   display: flex;
+   flex-direction: column;
+   height: $h;
+   text-align: center;
+   align-items: stretch;
+   justify-content: center;
+}
+
+@mixin tr($x, $y, $z) {
+   transform: translate3d($x, $y, $z);
+}
+
+;
+
+@mixin flexbox() {
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+   font-size: 0;
+}
+
+@mixin flexorder($val) {
+   -webkit-box-ordinal-group: $val;
+   -moz-box-ordinal-group: $val;
+   -ms-flex-order: $val;
+   -webkit-order: $val;
+   order: $val;
+}
+
+//</МИКСИНЫ>===============================================================================================
+
+//<ШРИФТЫ>===============================================================================================
+//для кириллицы нужно добавить в конец подключенного шрифта
+//&display=swap&subset=cyrillic-ext
+//<Подключаем шрифты>=======================================================================================
+//поставить кавычки в скобки
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+//</Подключаем шрифты>=======================================================================================
+
+//<Шрифт по умолчанию>==========================================================================================
+$fontfamily: "Poppins";
+//</Шрифт по умолчанию>==========================================================================================
+
+//</ШРИФТЫ>==============================================================================================================
+
+
+//<ПЕРЕМЕННЫЕ>=====СЕТКА АДАПТИВА ======================================================================================================
+$minwidth: 320px;
+$mwidth: 1920px; //ширина всего полотна макета от дизайнера
+$mw: 1210; //ширина контейнера ВСЕГДА!! - добавила отступы без-ти
+// на основании нее остальные брейкпойнты
+$md1: $mw+12;
+$md2: 991.98; //планшет
+$md3: 767.98; //бол смартфон
+$md4: 479.98; //мал смартфон
+
+//</ПЕРЕМЕННЫЕ>==============================================================================================================
+
+//<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
+//подкл обнуляющий файл
+@import "null";
+
+
+//</ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
+
+//<ОБОЛОЧКА>===========================================================================================================
+.wrapper {
+   width: 100%;
+   min-height: 100%;
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+
+   &.loaded {}
+}
+
+//</ОБОЛОЧКА>===========================================================================================================
+
+//<ОСНОВНАЯ СЕТКА>===========================================================================================================
+.container {
+   max-width: $mw+px;
+   margin: 0 auto;
+   width: 100%;
+   padding: 0px 20px; //отступы без-ти
+
+
+   @media (max-width:$md1+px) {
+      max-width: 970px;
+   }
+
+   @media (max-width:$md2+px) {
+      max-width: 750px;
+   }
+
+   @media (max-width:$md3+px) {
+      max-width: none;
+      padding: 0 10px;
+   }
+}
+
+//</ОСНОВНАЯ СЕТКА>===========================================================================================================
+//
+
+
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
+@import "header.scss";
+//@import "footer.scss";
+
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
+
+//<ОСНОВНОЙ БЛОК>====================================================================================================
+
+.main {}
+//блок первая главная страница
+   .first__page {
+      //padding: 10px;
+      background-image: url("/img/main-image.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      padding: 264px 0px 0px 0px;
+      @media(max-width: $md2+px) {
+         padding: 0px 0px 0px 0px;
+         background-image: none;
+      }
+      @media(max-width: $md3+px) {
+         padding: 80px 0px 0px 0px;
+      }
+   }
+
+.content {
+
+   &__body {
+   }
+}
+.image__page {
+   img {
+      max-width: 100%;
+   }
+   @media(min-width: $md2+px) {
+      display: none;
+   }
+}
+.body-main {
+
+   &__mode {
+      font-weight: 500;
+font-size: 24px;
+line-height: 133%;
+letter-spacing: 0.06em;
+//font-feature-settings: 'pnum' on, 'lnum' on;
+color: #FFFFFF;
+margin: 0px 0px 24px 0px;
+@media(max-width: $md2+px) {
+   font-size: 14px;
+   color: #000;
+   margin: 0px 0px 20px 0px;
+}
+   }
+
+   &__title {
+      font-weight: 700;
+font-size: 64px;
+line-height: 138%;
+color: #FFFFFF;
+margin: 0px 0px 40px 0px;
+@media(max-width: $md2+px) {
+   font-size: 38px;
+   color: #000;
+   margin: 0px 0px 30px 0px;
+}
+   }
+
+   &__info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+     padding: 0px 0px 265px 0px;
+      @media(max-width: $md2+px) {
+         padding: 0px 0px 22px 0px;
+      }
+      @media(max-width: $md3+px) {
+         display: block;
+       text-align: center;
+      }
+   }
+
+   &__button {
+      button {
+         border: 2px solid #3A4574;
+         background: #3A4574;
+         padding: 38px 64px;
+         font-weight: 500;
+font-size: 18px;
+line-height: 133%;
+color: #FFFFFF;
+transition: all 0.4s ease 0s;
+@media(max-width: $md2+px) {
+   padding: 28px 44px;
+}
+@media(max-width: $md3+px) {
+   padding:20px 36px;
+   font-size: 14px;
+   margin: 0px 0px 20px 0px;
+}
+&:hover {
+   background: #fff;
+   color: #3A4574;
+   border: 2px solid #fff;
+   @media(max-width: $md2+px) {
+      border: 2px solid #3A4574;
+   }
+}
+      }
+      
+   }
+
+   &__link  {
+      &:not(:last-child) {
+         margin: 0px 25px 0px 0px;
+      }
+      @media(max-width: $md3+px) {
+         &:not(:last-child) {
+            margin: 0px 10px 0px 0px;
+         }
+      }
+      a {
+         display: block;
+         font-weight: 600;
+font-size: 16px;
+line-height: 150%;
+text-align: center;
+font-feature-settings: 'pnum' on, 'lnum' on;
+padding: 12px;
+border-radius: 50%;
+border: 1px solid #fff;
+color: #FFFFFF;
+width: 48px;
+height: 48px;
+transition: all 0.4s ease 0s;
+@media(max-width: $md2+px) {
+   border: 1px solid #000;
+color: #000;
+}
+&:hover {
+   background: #3A4574;
+   border: 1px solid #3A4574;
+   @media(max-width: $md2+px) {
+      color: #fff;
+   }
+}
+      }
+   }
+
+   &__social {
+   }
+
+   &__list {
+      display: flex;
+      align-items: center;
+      @media(max-width: $md3+px) {
+         justify-content: center;
+      }
+   }
+}
+
+//===================================================================================================================
+//блок страница -меню 
+.menu {
+
+   &__section {
+      padding: 80px 0px 180px 0px;
+      @media(max-width:$md2+px) {
+         padding: 80px 0px;
+      }
+      @media(max-width:$md3+px) {
+         padding: 40px 0px;
+      }
+   }
+}
+.menu-name {
+
+   &__body {
+      display: flex;
+      //align-items: center;
+      position: relative; 
+      @media(max-width:$md3+px) {
+     display: block;
+     position: static; 
+      }
+   }
+
+   &__content {
+      flex: 0 1 50%;
+      padding: 0px 32px 0px 0px;
+      @media(max-width:$md3+px) {
+         flex: 1 1 100%;
+         padding: 0px 0px 0px 0px;
+      }
+   }
+
+   &__title {
+      font-weight: 600;
+font-size: 24px;
+line-height: 133%;
+color: #000000;
+margin: 0px 0px 9px 0px;
+@media(max-width:$md2+px) {
+   font-size: 18px;
+}
+@media(max-width:$md4+px) {
+   font-size: 16px;
+}
+   }
+
+   &__item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0px 0px 20px 0px;
+      margin: 0px 0px 20px 0px;
+      border-bottom: 1px solid #E7E7E7;
+      @media(max-width:$md2+px) {
+         padding: 0px 0px 10px 0px;
+         margin: 0px 0px 10px 0px;
+      }
+      @media(max-width:$md3+px) {
+       //  justify-content: space-between;
+      }
+   }
+.dots {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0px 12px;
+}
+.round {
+   &:not(:last-child) {
+      margin: 0px 12px 0px 0px;
+   }
+   width: 5px;
+   height: 5px;
+   border-radius: 50%;
+   background-color: #D3B47F;
+}
+   &__text {
+      //position: relative;
+      @media(max-width:$md2+px) {
+         font-size: 16px;
+         max-width: 120px;
+      }
+      @media(max-width:$md3+px) {
+         max-width: 190px;
+      }
+      @media(max-width:$md4+px) {
+         max-width: 100%;
+         font-size: 14px;
+      }
+   }
+
+   &__image {
+      flex: 0 1 50%;
+     // position: relative; 
+      img {
+         max-width: 100%;
+         object-fit: cover;
+         @media(max-width: 1223px) {
+            max-width: 250px;
+         }
+         @media(max-width:$md2+px) {
+            max-width: 200px;
+         }
+   
+      }
+      &::before {
+         content: '';
+         display: block;
+         width: 471px;
+height: 502px;
+border: 2px solid #D3B47F;
+position: absolute;
+top: 10%;
+right: 5%;
+@media(max-width: 1223px) {
+   max-width: 350px;
+   height: 70%;
+}
+@media(max-width:$md2+px) {
+   max-width: 250px;
+   height: 50%;
+}
+@media(max-width:$md3+px) {
+   display: none;
+}
+      }
+   }
+
+   &__img {
+      position: absolute;
+      @media(max-width:$md3+px) {
+         display: none;
+      }
+   }
+   .img01 {
+      top: 25%;
+     right: 25%;
+   }
+   .img02 {
+      top: 0;
+      right: -7%;
+   }
+}
+//===============================================================================================
+//блок отзывы слайдер
+.reviews {
+  
+   &__page {
+      background: #3A4574;
+     text-align: center;
+     padding: 220px 0px;
+     @media(max-width:$md2+px) {
+      padding: 100px 0px;
+     }
+     @media(max-width:$md3+px) {
+      padding: 40px 0px;
+     }
+   }
+
+   &__icon {
+margin: 0px 0px 34px 0px;
+@media(max-width:$md2+px) {
+   text-align: center;
+   margin: 0px 0px 24px 0px;
+   img {
+      width: 53px;
+height: 28px;
+   }
+}
+   }
+
+   &__title {
+      font-weight: 600;
+font-size: 36px;
+line-height: 111%;
+text-align: center;
+margin: 0px 0px 20px 0px;
+color: #D3B47F;
+@media(max-width:$md2+px) {
+   font-size: 26px;
+}
+@media(max-width:$md3+px) {
+   font-size: 22px;
+}
+   }
+
+   &__text {
+      font-weight: 400;
+font-size: 16px;
+line-height: 250%;
+color: #FFFFFF;
+margin: 0px auto 40px;
+max-width: 785px;
+@media(max-width:$md2+px) {
+   line-height: 200%;
+   margin: 0px 0px 30px 0px;
+}
+@media(max-width:$md3+px) {
+   line-height: 150%;
+   margin: 0px 0px 15px 0px;
+   font-size: 14px;
+}
+   }
+
+   &__name {
+      font-weight: 600;
+font-size: 24px;
+line-height: 167%;
+letter-spacing: 0.245em;
+color: #D3B47F;
+@media(max-width:$md2+px) {
+   font-size: 22px;
+}
+@media(max-width:$md3+px) {
+   font-size: 18px;
+   line-height: 130%;
+}
+   }
+}
+
+.reviews-slider {
+   overflow: hidden;
+ position: relative;
+
+}
+
+//стрелки
+.reviews-slider .swiper-button-next:after {
+      content: '';
+      background: url('../img/icons/slider-arrow-next.svg') 0 0 no-repeat;
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      top:0;
+   }
+   .reviews-slider .swiper-button-prev:after {
+      content: '';
+      background: url('../img/icons/slider-arrow-next.svg') 0 0 no-repeat;
+      transform: rotate(180deg);
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      top:0;
+   }
+.swiper-container {
+}
+.swiper-wrapper {
+display: flex;
+align-items: center;
+//justify-content: center;
+}
+.swiper-slide {
+  padding: 0px 120px;
+  @media(max-width:$md2+px) {
+   padding: 0px 80px;
+  }
+  @media(max-width:$md3+px)  {
+   padding: 0px 50px;
+  }
+}
+.reviews__content {
+ position: static;
+}
+//==============================================================================================================
+//форма поп-ап бронь стола
+.popup {
+ position: fixed;
+ z-index: 5;
+ width: 100%;
+ height: 100%;
+ background: rgb(0, 0, 0, 0.9);
+ top: 0;
+ left: 0;
+ opacity: 0;
+ visibility: hidden;
+ transition: all 0.8s ease 0s;
+ overflow: auto;
+ 
+   &__body {
+      min-height: 100%;
+      display: flex;
+   align-items: center;
+    justify-content: center;
+      padding: 30px 10px;
+     
+   }
+
+   &__content {
+      background: #fff;
+      padding: 30px;
+      max-width: 600px;
+      position: relative;
+      @media(max-width:$md3+px) {
+         max-width: 450px;
+      }  
+   }
+
+   &__close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 20px;
+      color: #000;
+   }
+
+   &__form {
+   }
+}
+.popup.open {
+   opacity: 1;
+    visibility: visible;
+ }
+.popup.open  .popup__content {
+   opacity: 1;
+}
+.reserve__info {
+   display: flex;
+   @media(max-width:$md4+px)  {
+      display: block;
+   }
+}
+.form {
+max-width: 550px;
+margin: 0 auto;
+padding: 16px 0px;
+@media(max-width:$md3+px)  {
+   max-width: 400px;
+}
+   &__body {
+   }
+
+   &__title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 183%;
+margin: 0px 0px 30px 0px;
+@media(max-width:$md3+px)  {
+   font-size: 36px;
+   line-height: 150%;
+}
+   }
+
+   &__item {
+      margin: 0px 0px 20px 0px;
+      @media(max-width:$md4+px) {
+      
+      }
+   }
+
+   &__label {
+      font-size: 16px;
+line-height: 200%;
+margin: 0px 0px 10px 0px;
+display: inline-block;
+@media(max-width:$md3+px) {
+   line-height: 120%;
+}
+   }
+
+   &__input {
+      height: 80px;
+      padding: 0px 20px;
+      border: 1px solid #CCCCCC;
+      width: 100%;
+      font-size: 18px;
+      @media(max-width:$md3+px) {
+         height: 60px;
+         padding: 0px 10px;
+         font-size: 14px;
+      }
+   }
+}
+textarea.form__input {
+   min-height: 125px;
+   resize: vertical;
+   padding: 20px;
+   @media(max-width:$md3+px) {
+      padding: 10px;
+   }
+}
+.first {
+
+   &__item {
+      margin: 0px 19px 0px 0px;
+      @media(max-width:$md4+px) {
+         margin: 0px 0px 20px 0px;
+      }        
+     
+   }
+}
+.form__input._error {
+   box-shadow: 0 0 15px red;
+}
+.button-reserve {
+   background: #3A4574;
+   display: block;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  padding: 36px 102px;
+  border: 2px solid #3A4574;
+  text-align: center;
+  color: #fff;
+  transition: all 0.4s ease 0s;
+  @media(max-width:$md3+px) {
+   padding: 26px 52px;
+   font-size: 18px;
+  }
+  &:hover {
+   background: #fff;
+   color: #3A4574;
+  }
+}
+.name1 {
+}
+.body-main {
+
+   &__link {
+   }
+}
+
+
+
+
+//</ОСНОВНОЙ БЛОК>====================================================================================================
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>====================================================================================================
+@import "burger.scss"; //стили меню-бургер
+//@import "forms.scss"; //кнопки чекбоксы поля 
+//@import "popup.scss"; //стили окон - поп-ап
+//@import "ui.scss"; // сборка одинаковых классов вписываем сюда!
+//@import "adaptive.scss"; // подкл адаптива после сетки
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>===================================================================================================
